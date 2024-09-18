@@ -1,27 +1,32 @@
 import { useState } from "react";
 
-export function ListGroup() {
-  let cities = ["თბილისი", "მცხეთა", "ბათუმი", "ქუთაისი"];
+interface ListGroupProps {
+  heading : string, // სიის სათაური
+  items: string[] // სტრიქონების მასივი, სიაში გამოსატანი ინფორმაცია
+}
+
+export function ListGroup(props: ListGroupProps) {
+  
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   return (
     <>
-      <h1>სია</h1>
-      {cities.length === 0 && <p>სია ცარიელია</p>}
+      <h1>{props.heading}</h1>
+      {props.items.length === 0 && <p>სია ცარიელია</p>}
       <ul className="list-group">
-        {cities.map((city, index) => (
+        {props.items.map((item, index) => (
           <li
             className={
               index === selectedIndex
                 ? "list-group-item active"
                 : "list-group-item"
             }
-            key={city}
+            key={item}
             onClick={() => {
               setSelectedIndex(index);
             }}
           >
-            {city}
+            {item}
           </li>
         ))}
       </ul>
