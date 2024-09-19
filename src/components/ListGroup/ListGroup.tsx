@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './ListGroup.css';
 
 interface ListGroupProps {
   heading: string; // სიის სათაური
