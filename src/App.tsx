@@ -1,12 +1,20 @@
 import ListGroup from "./components/ListGroup";
 
 function App() {
-  let heading = "ქალაქები";
-  let items = ["თბილისი", "მცხეთა", "ბათუმი", "ქუთაისი"];
+  let citiesHeading = "ქალაქები";
+  let cities = ["თბილისი", "მცხეთა", "ბათუმი", "ქუთაისი"];
+
+  const handleSelectItem = (item: string) => {
+    console.log(item);
+  };
 
   return (
     <div>
-      <ListGroup heading={heading} items={items} />
+      <ListGroup
+        heading={citiesHeading}
+        items={cities}
+        onSelectItem={handleSelectItem}
+      />
     </div>
   );
 }

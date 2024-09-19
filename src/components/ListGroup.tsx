@@ -1,20 +1,20 @@
 import { useState } from "react";
 
 interface ListGroupProps {
-  heading : string, // სიის სათაური
-  items: string[] // სტრიქონების მასივი, სიაში გამოსატანი ინფორმაცია
+  heading: string; // სიის სათაური
+  items: string[]; // სტრიქონების მასივი, სიაში გამოსატანი ინფორმაცია
+  onSelectItem: (item: string) => void; // ქალაქის არჩევის მომენტი
 }
 
-export function ListGroup(props: ListGroupProps) {
-  
+export function ListGroup({ heading, items, onSelectItem }: ListGroupProps) {
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   return (
     <>
-      <h1>{props.heading}</h1>
-      {props.items.length === 0 && <p>სია ცარიელია</p>}
+      <h1>{heading}</h1>
+      {items.length === 0 && <p>სია ცარიელია</p>}
       <ul className="list-group">
-        {props.items.map((item, index) => (
+        {items.map((item, index) => (
           <li
             className={
               index === selectedIndex
@@ -24,6 +24,7 @@ export function ListGroup(props: ListGroupProps) {
             key={item}
             onClick={() => {
               setSelectedIndex(index);
+              onSelectItem(item);
             }}
           >
             {item}
