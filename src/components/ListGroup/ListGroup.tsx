@@ -1,5 +1,5 @@
 import { useState } from "react";
-import './ListGroup.css';
+import styles from './ListGroup.module.css';
 
 interface ListGroupProps {
   heading: string; // სიის სათაური
@@ -10,11 +10,13 @@ interface ListGroupProps {
 export function ListGroup({ heading, items, onSelectItem }: ListGroupProps) {
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
+  console.log(styles['list-group'])
+
   return (
     <>
       <h1>{heading}</h1>
       {items.length === 0 && <p>სია ცარიელია</p>}
-      <ul className="list-group">
+      <ul className={styles.listGroup}>
         {items.map((item, index) => (
           <li
             className={
