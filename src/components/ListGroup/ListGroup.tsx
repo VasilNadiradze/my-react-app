@@ -16,7 +16,7 @@ export function ListGroup({ heading, items, onSelectItem }: ListGroupProps) {
     <>
       <h1>{heading}</h1>
       {items.length === 0 && <p>სია ცარიელია</p>}
-      <ul className={styles.listGroup}>
+      <ul className={styles.listGroup} style={{ backgroundColor: "yellow" }}>
         {items.map((item, index) => (
           <li
             className={

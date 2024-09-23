@@ -1,21 +1,9 @@
-import ListGroup from "./components/ListGroup";
-import './App.css';
+import Form from "./components/Form";
 
 function App() {
-  let citiesHeading = "ქალაქები";
-  let cities = ["თბილისი", "მცხეთა", "ბათუმი", "ქუთაისი"];
-
-  const handleSelectItem = (item: string) => {
-    console.log(item);
-  };
-
   return (
     <div>
-      <ListGroup
-        heading={citiesHeading}
-        items={cities}
-        onSelectItem={handleSelectItem}
-      />
+      <Form />
     </div>
   );
 }
