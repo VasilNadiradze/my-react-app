@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from './ListGroup.module.css';
+import styles from "./ListGroup.module.css";
 
 interface ListGroupProps {
   heading: string; // სიის სათაური
@@ -10,30 +10,33 @@ interface ListGroupProps {
 export function ListGroup({ heading, items, onSelectItem }: ListGroupProps) {
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
-  console.log(styles['list-group'])
+  console.log(styles["list-group"]);
 
   return (
     <>
       <h1>{heading}</h1>
-      {items.length === 0 && <p>სია ცარიელია</p>}
-      <ul className={styles.listGroup} style={{ backgroundColor: "yellow" }}>
-        {items.map((item, index) => (
-          <li
-            className={
-              index === selectedIndex
-                ? "list-group-item active"
-                : "list-group-item"
-            }
-            key={item}
-            onClick={() => {
-              setSelectedIndex(index);
-              onSelectItem(item);
-            }}
-          >
-            {item}
-          </li>
-        ))}
-      </ul>
+      {items.length === 0 ? (
+        <p>სია ცარიელია</p>
+      ) : (
+        <ul className={styles.listGroup} style={{ backgroundColor: "yellow" }}>
+          {items.map((item, index) => (
+            <li
+              className={
+                index === selectedIndex
+                  ? "list-group-item active"
+                  : "list-group-item"
+              }
+              key={item}
+              onClick={() => {
+                setSelectedIndex(index);
+                onSelectItem(item);
+              }}
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   );
 }

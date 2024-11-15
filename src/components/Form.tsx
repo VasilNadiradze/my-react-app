@@ -6,6 +6,8 @@ const Form = () => {
     console.log("გაიგზავნა");
   };
 
+  const test = 'ტესტი'; // eslint-disable-line
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="mb-3">
