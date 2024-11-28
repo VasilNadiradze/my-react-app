@@ -1,12 +1,16 @@
-import { FormEvent } from "react";
+import { FormEvent, useRef } from "react";
 
 const Form = () => {
+  const nameRef = useRef<HTMLInputElement>(null); // საწყისი მნიშვნელობა null
+  const ageRef = useRef<HTMLInputElement>(null); // საწყისი მნიშვნელობა null
+  const person = { name: "", age: 0 };
+
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log("გაიგზავნა");
+    if (nameRef.current) person.name = nameRef.current.value;
+    if (ageRef.current) person.age = parseInt(ageRef.current.value);
+    console.log(person);
   };
-
-  const test = 'ტესტი'; // eslint-disable-line
 
   return (
     <form onSubmit={handleSubmit}>
@@ -14,13 +18,13 @@ const Form = () => {
         <label htmlFor="name" className="form-label">
           სახელი
         </label>
-        <input type="text" className="form-control" id="name" />
+        <input type="text" className="form-control" id="name" ref={nameRef} />
       </div>
       <div className="mb-3">
         <label htmlFor="age" className="form-label">
           ასაკი
         </label>
-        <input type="number" className="form-control" id="age" />
+        <input type="number" className="form-control" id="age" ref={ageRef} />
       </div>
       <button className="btn btn-primary" type="submit">
         გაგზავნა
