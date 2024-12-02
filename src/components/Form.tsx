@@ -1,8 +1,18 @@
 import { FieldValues, useForm } from "react-hook-form";
 
+interface FormData {
+  name: string;
+  age: number;
+}
+
 const Form = () => {
-  const { register, handleSubmit } = useForm();
-  const customOnSubmit = (data: FieldValues) => console.log(data)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const customOnSubmit = (data: FieldValues) => console.log(data);
 
   return (
     <form onSubmit={handleSubmit(customOnSubmit)}>
@@ -14,8 +24,16 @@ const Form = () => {
           type="text"
           className="form-control"
           id="name"
-          {...register("name")}
+          {...register("name", { required: true, minLength: 2 })}
         />
+        {errors.name?.type === "required" && (
+          <p className="text-danger">სახელის მითითება აუცილებელია</p>
+        )}
+        {errors.name?.type === "minLength" && (
+          <p className="text-danger">
+            სახელი უნდა შეიცავდეს ერთ სიმბოლოზე მეტს
+          </p>
+        )}
       </div>
       <div className="mb-3">
         <label htmlFor="age" className="form-label">
@@ -25,8 +43,11 @@ const Form = () => {
           type="number"
           className="form-control"
           id="age"
-          {...register("age")}
+          {...register("age", { required: true })}
         />
+        {errors.age?.type === "required" && (
+          <p className="text-danger">ასაკის მითითება აუცილებელია</p>
+        )}
       </div>
       <button className="btn btn-primary" type="submit">
         გაგზავნა
