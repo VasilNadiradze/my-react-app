@@ -1,16 +1,22 @@
 import { FieldValues, useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod/src/zod.ts";
 
-interface FormData {
-  name: string;
-  age: number;
-}
+const schema = z.object({
+  name: z
+    .string()
+    .min(2, { message: "სახელი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს" }),
+  age: z.number({ invalid_type_error: "მინიმალური ასაკი 18 წელი" }).min(18),
+});
+
+type FormData = z.infer<typeof schema>;
 
 const Form = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const customOnSubmit = (data: FieldValues) => console.log(data);
 
@@ -24,16 +30,9 @@ const Form = () => {
           type="text"
           className="form-control"
           id="name"
-          {...register("name", { required: true, minLength: 2 })}
+          {...register("name")}
         />
-        {errors.name?.type === "required" && (
-          <p className="text-danger">სახელის მითითება აუცილებელია</p>
-        )}
-        {errors.name?.type === "minLength" && (
-          <p className="text-danger">
-            სახელი უნდა შეიცავდეს ერთ სიმბოლოზე მეტს
-          </p>
-        )}
+        {errors.name && <p className="text-danger">{errors.name.message}</p>}
       </div>
       <div className="mb-3">
         <label htmlFor="age" className="form-label">
@@ -43,11 +42,9 @@ const Form = () => {
           type="number"
           className="form-control"
           id="age"
-          {...register("age", { required: true })}
+          {...register("age", { valueAsNumber: true })}
         />
-        {errors.age?.type === "required" && (
-          <p className="text-danger">ასაკის მითითება აუცილებელია</p>
-        )}
+        {errors.age && <p className="text-danger">{errors.age.message}</p>}
       </div>
       <button className="btn btn-primary" type="submit">
         გაგზავნა
