@@ -3,10 +3,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.ts";
 
 const schema = z.object({
-  name: z
-    .string()
-    .min(2, { message: "სახელი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს" }),
-  age: z.number({ invalid_type_error: "მინიმალური ასაკი 18 წელი" }).min(18),
+  name: z.string().min(2),
+  age: z.number().min(18),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -15,7 +13,7 @@ const Form = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const customOnSubmit = (data: FieldValues) => console.log(data);
@@ -46,7 +44,7 @@ const Form = () => {
         />
         {errors.age && <p className="text-danger">{errors.age.message}</p>}
       </div>
-      <button className="btn btn-primary" type="submit">
+      <button disabled={!isValid} className="btn btn-primary" type="submit">
         გაგზავნა
       </button>
     </form>
