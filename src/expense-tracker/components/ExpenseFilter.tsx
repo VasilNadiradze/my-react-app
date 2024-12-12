@@ -1,3 +1,5 @@
+export const categories = ["ტექნიკა", "საკვები", "სასმელი"];
+
 interface Props {
   onSelectCategory: (category: string) => void;
 }
@@ -9,9 +11,11 @@ const ExpenseFilter = ({ onSelectCategory }: Props) => {
       onChange={(event) => onSelectCategory(event.target.value)}
     >
       <option value="">ყველა კატეგორია</option>
-      <option value="ტექნიკა">ტექნიკა</option>
-      <option value="საკვები">საკვები</option>
-      <option value="სასმელი">სასმელი</option>
+      {categories.map((category) => (
+        <option value={category} key={category}>
+          {category}
+        </option>
+      ))}
     </select>
   );
 };
