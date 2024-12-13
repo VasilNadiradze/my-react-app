@@ -1,4 +1,4 @@
-export const categories = ["ტექნიკა", "საკვები", "სასმელი"];
+import categories from "../categories";
 
 interface Props {
   onSelectCategory: (category: string) => void;
